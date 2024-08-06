@@ -240,3 +240,19 @@ cython_debug/
 #.idea/
 
 /setup.py
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/runConfigurations/pytest_in_tests.xml
+/.idea/.gitignore
+/.idea/batched-queue.iml
+/.idea/GitlabLint.xml
+/.idea/jupyter-settings.xml
+/.idea/material_theme_project_new.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/prettier.xml
+/.idea/ruff.xml
+/.idea/vcs.xml
+/junit.xml
+/src/batched_queue/incrementer.c
+/src/batched_queue/incrementer.html
