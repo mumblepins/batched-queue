@@ -35,7 +35,11 @@ def _init_multiprocessing():
     if not _multiprocessing_initialized:
         import multiprocessing as mp
 
-        mp.set_start_method("forkserver")
+        try:
+            mp.set_start_method("forkserver")
+        except ValueError:
+            # not all platforms support forkserver, just ignore
+            pass
         _multiprocessing_initialized = True
 
 
