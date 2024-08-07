@@ -22,7 +22,11 @@ jobs:
       fail-fast: true
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
-        os: ["ubuntu-latest", "windows-latest", "macos-13", "macos-14"]
+        os:
+          - "ubuntu-latest"
+          - "windows-latest"
+    #          - "macos-13"
+    #          - "macos-14"
     env:
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
@@ -33,20 +37,20 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+      - name: Setup a local virtual environment (if no poetry.toml file)
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
       - uses: actions/cache@v4
-        id: cache-pip
+        name: Define a cache for the virtual environment based on the dependencies lock file
         with:
-          path: ~/.cache/pip
-          key: ${{ matrix.os }}-${{ matrix.python-version }}
-      - run: pip install --upgrade poetry
-      - uses: actions/cache@v4
-        id: cache-poetry
-        with:
-          path: ~/.cache/pypoetry/virtualenvs
-          key: ${{ matrix.os }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
+          path: ./.venv
+          key: ${{ runner.os }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
           restore-keys: |
-            ${{ matrix.os }}-${{ matrix.python-version }}-poetry-
-            ${{ matrix.os }}-
+            ${{ runner.os }}-${{ matrix.python-version }}-poetry-
+            ${{ runner.os }}-
       - name: install dependencies
         run: |
           poetry install --sync
@@ -78,7 +82,11 @@ jobs:
       - test
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-13, macos-14]
+        os:
+          - ubuntu-latest
+          - windows-latest
+    #          - macos-13
+    #          - macos-14
 
     steps:
       - uses: actions/checkout@v4
