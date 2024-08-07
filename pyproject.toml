@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "batched-queue"
 version = "0.1.1"
-description = ""
-authors = ["Daniel Sullivan "]
+description = "Batched Queue"
+authors = ["Daniel Sullivan"]
 readme = "README.md"
 packages = [
     { include = "batched_queue", from = "src" },

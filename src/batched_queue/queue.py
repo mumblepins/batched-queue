@@ -134,6 +134,7 @@ class BatchedQueue(Generic[T, U]):
             self._proc_thread.join(timeout=timeout)
         if self._worker_pool is not None:
             self._worker_pool.shutdown(wait=False, cancel_futures=True)
+            self._worker_pool = None
 
     def put(self, item: T | Iterable[T]) -> BatchedQueueResult[U]:
         is_list = True
@@ -163,29 +164,32 @@ class BatchedQueue(Generic[T, U]):
             logger.debug("Workers finished processing: %s", len(self._futures))
         logger.debug("Workers available: %s", self.num_workers - len(self._futures))
 
+    def _processor_process(self):
+        with self._process_q_lock:
+            if len(self.to_process_q) == 0:
+                self._q_ready.clear()
+                return
+            to_proc_ids, to_proc = self._get_for_processing()
+        worker_func = self._select_func(len(to_proc_ids))
+        logger.info(
+            "Processing %s items with Worker func type: %s",
+            len(to_proc_ids),
+            "Multiple" if worker_func.multiple_form else "Single",
+        )
+
+        self._run_worker(worker_func, to_proc_ids, to_proc)
+
     def _processor_loop(self):
         if self.num_workers > 1:
             self._worker_pool = self.worker_pool_executor(max_workers=self.num_workers)
         while not self._stop:
             self._q_ready.wait(timeout=5)
             self._wait_for_futures()
-            with self._process_q_lock:
-                if len(self.to_process_q) == 0:
-                    self._q_ready.clear()
-                    continue
-                to_proc_ids, to_proc = self._get_for_processing()
-
-            worker_func = self._select_func(len(to_proc_ids))
-            logger.info(
-                "Processing %s items with Worker func type: %s",
-                len(to_proc_ids),
-                "Multiple" if worker_func.multiple_form else "Single",
-            )
-
-            self._run_worker(worker_func, to_proc_ids, to_proc)
+            self._processor_process()
 
         if self._worker_pool is not None:
             self._worker_pool.shutdown()
+            self._worker_pool = None
 
     def _run_worker(self, func: WorkerFunc, ids: list[int], to_proc: list[T]):
         if self._worker_pool is not None:
