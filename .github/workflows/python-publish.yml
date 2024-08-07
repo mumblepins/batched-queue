@@ -51,7 +51,7 @@ jobs:
         run: |
           poetry install --sync
       - name: run pre-commit
-        uses: pre-commit/action@v3
+        uses: pre-commit/action@main
       #        run: poetry run pre-commit run --all-files
       - name: run pyright
         uses: jakebailey/pyright-action@v2
