@@ -12,9 +12,14 @@ from batched_queue.queue import BatchedQueue
 from batched_queue.types import BatchedQueueWorkerSingle
 
 logger = logging.getLogger(__name__)
-single_time = 20  # ms
-multiple_fixed_time = 100  # ms
-multiple_time = 5  # ms
+if sys.platform.startswith("linux"):
+    single_time = 20  # ms
+    multiple_fixed_time = 100  # ms
+    multiple_time = 5  # ms
+else:
+    single_time = 200  # ms
+    multiple_fixed_time = 2000  # ms
+    multiple_time = 50  # ms
 
 
 def worker_func_single(item: int) -> int:
@@ -85,12 +90,13 @@ def test_process(items, worker_func, calc_time):
     diff = end - start
     logger.info("Time: %s", diff)
     if isinstance(res, list):
-        assert abs(diff - calc_time(len(items))) < 0.1
+        estimated_time = calc_time(len(items))
         assert res == [i + 1 for i in items]
     else:
-        assert abs(diff - calc_time(1)) < 0.1
-
+        estimated_time = calc_time(1)
         assert res == items + 1
+    # 10% error
+    assert abs(diff - estimated_time) / estimated_time < 0.1
 
 
 @pytest.mark.parametrize("num_workers", [2, 4])
