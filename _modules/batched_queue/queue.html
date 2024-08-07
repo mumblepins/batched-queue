@@ -13,7 +13,7 @@
     
     
       
-        <title>batched_queue.queue - batched-queue v0.1.1 documentation</title>
+        <title>batched_queue.queue - batched-queue v0.1.2 documentation</title>
       
     
     
@@ -71,7 +71,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../index.html" title="batched-queue v0.1.1 documentation" class="md-header__button md-logo" aria-label="batched-queue v0.1.1 documentation" data-md-component="logo">
+    <a href="../../index.html" title="batched-queue v0.1.2 documentation" class="md-header__button md-logo" aria-label="batched-queue v0.1.2 documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -83,7 +83,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            batched-queue v0.1.1 documentation
+            batched-queue v0.1.2 documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -170,12 +170,12 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../index.html" title="batched-queue v0.1.1 documentation" class="md-nav__button md-logo" aria-label="batched-queue v0.1.1 documentation" data-md-component="logo">
+    <a href="../../index.html" title="batched-queue v0.1.2 documentation" class="md-nav__button md-logo" aria-label="batched-queue v0.1.2 documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
-    batched-queue v0.1.1 documentation
+    batched-queue v0.1.2 documentation
   </label>
   
     <div class="md-nav__source">
@@ -386,7 +386,8 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc_thread</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_proc_thread</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_worker_pool</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_worker_pool</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cancel_futures</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_worker_pool</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cancel_futures</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_worker_pool</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="BatchedQueue.put">
@@ -420,29 +421,32 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Workers finished processing: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_futures</span><span class="p">))</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Workers available: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_futures</span><span class="p">))</span>
 
+    <span class="k">def</span> <span class="nf">_processor_process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_q_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_process_q</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_q_ready</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="n">to_proc_ids</span><span class="p">,</span> <span class="n">to_proc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_for_processing</span><span class="p">()</span>
+        <span class="n">worker_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_func</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">to_proc_ids</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Processing </span><span class="si">%s</span><span class="s2"> items with Worker func type: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">to_proc_ids</span><span class="p">),</span>
+            <span class="s2">&quot;Multiple&quot;</span> <span class="k">if</span> <span class="n">worker_func</span><span class="o">.</span><span class="n">multiple_form</span> <span class="k">else</span> <span class="s2">&quot;Single&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_worker</span><span class="p">(</span><span class="n">worker_func</span><span class="p">,</span> <span class="n">to_proc_ids</span><span class="p">,</span> <span class="n">to_proc</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_processor_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_worker_pool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">worker_pool_executor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">)</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_q_ready</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_futures</span><span class="p">()</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_q_lock</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_process_q</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_q_ready</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-                    <span class="k">continue</span>
-                <span class="n">to_proc_ids</span><span class="p">,</span> <span class="n">to_proc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_for_processing</span><span class="p">()</span>
-
-            <span class="n">worker_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_func</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">to_proc_ids</span><span class="p">))</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;Processing </span><span class="si">%s</span><span class="s2"> items with Worker func type: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                <span class="nb">len</span><span class="p">(</span><span class="n">to_proc_ids</span><span class="p">),</span>
-                <span class="s2">&quot;Multiple&quot;</span> <span class="k">if</span> <span class="n">worker_func</span><span class="o">.</span><span class="n">multiple_form</span> <span class="k">else</span> <span class="s2">&quot;Single&quot;</span><span class="p">,</span>
-            <span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_run_worker</span><span class="p">(</span><span class="n">worker_func</span><span class="p">,</span> <span class="n">to_proc_ids</span><span class="p">,</span> <span class="n">to_proc</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_processor_process</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_worker_pool</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_worker_pool</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_worker_pool</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_run_worker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">WorkerFunc</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">to_proc</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_worker_pool</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
