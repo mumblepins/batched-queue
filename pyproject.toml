@@ -28,6 +28,7 @@ myst-parser = "*"
 bump2version = "*"
 pystache = "*"
 toml = "*"
+pytest-rerunfailures = "^14.0"
 
 
 [tool.poetry.build]

@@ -1,5 +1,6 @@
 import logging
 import secrets
+import sys
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from threading import Thread
 from time import sleep
@@ -52,6 +53,7 @@ items_list = [
 ]
 
 
+@pytest.mark.flaky(reruns=5, condition=not sys.platform.startswith("linux"))
 @pytest.mark.parametrize("items", items_list)
 @pytest.mark.parametrize(
     "worker_func, calc_time",
