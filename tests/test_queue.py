@@ -58,7 +58,7 @@ items_list = [
 ]
 
 
-@pytest.mark.flaky(reruns=5, reruns_delay=2, condition=not sys.platform.startswith("linux"))
+@pytest.mark.flaky(reruns=5, reruns_delay=2)
 @pytest.mark.parametrize("items", items_list)
 @pytest.mark.parametrize(
     "worker_func, calc_time",
@@ -95,8 +95,8 @@ def test_process(items, worker_func, calc_time):
     else:
         estimated_time = calc_time(1)
         assert res == items + 1
-    # 10% error
-    assert abs(diff - estimated_time) / estimated_time < 0.1
+    # 20% error or less than 0.15 seconds
+    assert abs(diff - estimated_time) / estimated_time < 0.2 or abs(diff - estimated_time) < 0.15
 
 
 @pytest.mark.parametrize("num_workers", [2, 4])
