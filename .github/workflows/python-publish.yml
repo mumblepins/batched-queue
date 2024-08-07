@@ -63,7 +63,7 @@ jobs:
       - name: run tests
         run: >-
           poetry run pytest
-          -n 8
+          -n 16
           --dist worksteal
           --verbose
           --cov

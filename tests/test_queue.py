@@ -53,7 +53,7 @@ items_list = [
 ]
 
 
-@pytest.mark.flaky(reruns=5, condition=not sys.platform.startswith("linux"))
+@pytest.mark.flaky(reruns=5, reruns_delay=2, condition=not sys.platform.startswith("linux"))
 @pytest.mark.parametrize("items", items_list)
 @pytest.mark.parametrize(
     "worker_func, calc_time",
