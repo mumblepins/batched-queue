@@ -275,7 +275,11 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_multiprocessing_initialized</span><span class="p">:</span>
         <span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">mp</span>
 
-        <span class="n">mp</span><span class="o">.</span><span class="n">set_start_method</span><span class="p">(</span><span class="s2">&quot;forkserver&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mp</span><span class="o">.</span><span class="n">set_start_method</span><span class="p">(</span><span class="s2">&quot;forkserver&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># not all platforms support forkserver, just ignore</span>
+            <span class="k">pass</span>
         <span class="n">_multiprocessing_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
 
