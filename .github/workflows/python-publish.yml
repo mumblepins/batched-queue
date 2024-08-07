@@ -22,7 +22,7 @@ jobs:
       fail-fast: true
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-latest", "windows-latest", "macos-13", "macos-14"]
     env:
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
@@ -37,16 +37,16 @@ jobs:
         id: cache-pip
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-${{ matrix.python-version }}
+          key: ${{ matrix.os }}-${{ matrix.python-version }}
       - run: pip install --upgrade poetry
       - uses: actions/cache@v4
         id: cache-poetry
         with:
           path: ~/.cache/pypoetry/virtualenvs
-          key: ${{ runner.os }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
+          key: ${{ matrix.os }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.python-version }}-poetry-
-            ${{ runner.os }}-
+            ${{ matrix.os }}-${{ matrix.python-version }}-poetry-
+            ${{ matrix.os }}-
       - name: install dependencies
         run: |
           poetry install --sync
@@ -68,8 +68,9 @@ jobs:
       - uses: codecov/codecov-action@v4
         with:
           files: ./coverage.xml
+          use_oidc: true
           env_vars: OS,PYTHON
-          token: ${{ secrets.CODECOV_TOKEN }}
+  #          token: ${{ secrets.CODECOV_TOKEN }}
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -84,6 +85,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.20.0
+        env:
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.10"
       - uses: actions/upload-artifact@v4
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
@@ -141,18 +144,18 @@ jobs:
 #        id: cache-pip
 #        with:
 #          path: ~/.cache/pip
-#          key: ${{ runner.os }}-${{ matrix.python-version }}
+#          key: ${{ matrix.os }}-${{ matrix.python-version }}
 #          restore-keys: |
-#            ${{ runner.os }}-
+#            ${{ matrix.os }}-
 #      - run: pip install --upgrade --pre poetry
 #      - uses: actions/cache@v4
 #        id: cache-poetry
 #        with:
 #          path: ~/.cache/pypoetry/virtualenvs
-#          key: ${{ runner.os }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
+#          key: ${{ matrix.os }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
 #          restore-keys: |
-#            ${{ runner.os }}-${{ matrix.python-version }}-poetry-
-#            ${{ runner.os }}-
+#            ${{ matrix.os }}-${{ matrix.python-version }}-poetry-
+#            ${{ matrix.os }}-
 #      - name: install dependencies
 #        run: |
 #          poetry install --sync
