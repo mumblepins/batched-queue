@@ -1,0 +1,66 @@
+#!/bin/bash
+# Wrapper around bumpversion to update the changelog and amend the commit
+# to include it within the bumped version commit
+function initialize-bumpversion() {
+  local version
+
+  if [ -f ".config/.bumpversion.cfg" ]; then
+    return
+  fi
+  if [ ! -f "VERSION" ]; then
+    echo "0.0.1" > VERSION
+  fi
+  version="$(cat VERSION)"
+  mkdir -p ".config"
+  cat << EOF > ".config/.bumpversion.cfg"
+[bumpversion]
+current_version = ${version}
+commit = True
+tag = True
+sign_tags = True
+allow_dirty = True
+
+[bumpversion:glob:src/*/__init__.py]
+search = : str = "{current_version}"
+replace = : str = "{new_version}"
+
+[bumpversion:glob:*/pyproject.toml]
+search = version = "{current_version}"
+replace = version = "{new_version}"
+
+;[bumpversion:glob:*/README.md]
+
+[bumpversion:glob:VERSION]
+EOF
+}
+function check-git-status() {
+
+  git_status="$(git status --porcelain | xargs)"
+  if [ "$git_status" != "M CHANGELOG.md" ] && [ "$git_status" != "" ]; then
+    echo "$git_status"
+    echo "Please commit or stash your changes before running this script."
+    exit 1
+  fi
+}
+
+initialize-bumpversion
+check-git-status
+
+git add .
+bumpversion --config-file ".config/.bumpversion.cfg" "$@" || exit 3
+
+tag_name="$(git tag -l --format '%(refname:strip=2)' --sort=creatordate | tail -n1)"
+tag_message="$(git tag -l --format '%(contents:subject)' --sort=creatordate | tail -n1)"
+echo "TAG_NAME: $tag_name"
+echo "TAG_MESSAGE: $tag_message"
+
+if [ -f '.pre-commit-config.yaml' ]; then
+  pre-commit run -a --hook-stage post-commit gitchangelog || true
+fi
+if [ -f 'CHANGELOG.md' ]; then
+  # update the changelog in the commit if we need to
+  git add CHANGELOG.md
+  git commit --amend -m "$tag_message"
+  new_hash="$(git rev-parse HEAD)"
+  git tag -s -f -m "$tag_message" "$tag_name" "$new_hash"
+fi

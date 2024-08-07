@@ -96,15 +96,15 @@ repos:
         always_run: true
         types: [python]
         verbose: true
-#  - repo: local
-#    hooks:
-#      - id: gitchangelog
-#        language: system
-#        always_run: true
-#        pass_filenames: false
-#        name: Generate changelog
-#        entry: bash -c "GITCHANGELOG_CONFIG_FILENAME='.config/.gitchangelog.rc' gitchangelog
-#          > CHANGELOG.md"
-#        stages:
-#          - post-commit
-#          - pre-merge-commit
+  - repo: local
+    hooks:
+      - id: gitchangelog
+        language: system
+        always_run: true
+        pass_filenames: false
+        name: Generate changelog
+        entry: bash -c "GITCHANGELOG_CONFIG_FILENAME='.config/.gitchangelog.rc' gitchangelog
+          > CHANGELOG.md"
+        stages:
+          - post-commit
+          - pre-merge-commit
