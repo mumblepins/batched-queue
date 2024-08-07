@@ -1,0 +1,1024 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>batched_queue package - batched-queue v0.1.0 documentation</title>
+      
+    
+    
+      
+        
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.3625f807144f53acf.min.css?v=fbfc4466" />
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="green">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#submodules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="batched-queue v0.1.0 documentation" class="md-header__button md-logo" aria-label="batched-queue v0.1.0 documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            batched-queue v0.1.0 documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              batched_queue package
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mumblepins/batched-queue/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Batched Queue
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="batched-queue v0.1.0 documentation" class="md-nav__button md-logo" aria-label="batched-queue v0.1.0 documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+    </a>
+    batched-queue v0.1.0 documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mumblepins/batched-queue/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Batched Queue
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">batched_<wbr>queue package</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">batched_<wbr>queue package</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#submodules" class="md-nav__link">
+    <span class="md-ellipsis">Submodules</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-batched_queue.incrementer" class="md-nav__link">
+    <span title="batched_queue.incrementer (Python module)" class="md-ellipsis">batched_<wbr>queue.<wbr>incrementer module</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.incrementer module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.incrementer.Incrementer" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.incrementer.Incrementer (Python class) — Bases: object" class="md-ellipsis">batched_<wbr>queue.<wbr>incrementer.<wbr>Incrementer</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.incrementer.Incrementer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.incrementer.Incrementer.increment" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.incrementer.Incrementer.increment (Python method)" class="md-ellipsis">increment</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.incrementer.Incrementer.value" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.incrementer.Incrementer.value (Python attribute)" class="md-ellipsis">value</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-batched_queue.queue" class="md-nav__link">
+    <span title="batched_queue.queue (Python module)" class="md-ellipsis">batched_<wbr>queue.<wbr>queue module</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.queue module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.queue.BatchedQueue (Python class) — Bases: Generic[T, U]" class="md-ellipsis">batched_<wbr>queue.<wbr>queue.<wbr>Batched<wbr>Queue</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.queue.BatchedQueue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.kill" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.queue.BatchedQueue.kill (Python method)" class="md-ellipsis">kill</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.multiple_form" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.queue.BatchedQueue.multiple_form (Python attribute)" class="md-ellipsis">multiple_<wbr>form</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.process" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.queue.BatchedQueue.process (Python method)" class="md-ellipsis">process</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.put" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.queue.BatchedQueue.put (Python method)" class="md-ellipsis">put</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.single_form" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.queue.BatchedQueue.single_form (Python attribute)" class="md-ellipsis">single_<wbr>form</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.start" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.queue.BatchedQueue.start (Python method)" class="md-ellipsis">start</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.stop" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.queue.BatchedQueue.stop (Python method)" class="md-ellipsis">stop</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.WorkerFunc" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.queue.WorkerFunc (Python class) — Bases: Generic[T, U]" class="md-ellipsis">batched_<wbr>queue.<wbr>queue.<wbr>Worker<wbr>Func</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.queue.WorkerFunc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.WorkerFunc.func" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.queue.WorkerFunc.func (Python attribute)" class="md-ellipsis">func</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.WorkerFunc.kwargs" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.queue.WorkerFunc.kwargs (Python attribute)" class="md-ellipsis">kwargs</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.WorkerFunc.multiple_form" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.queue.WorkerFunc.multiple_form (Python attribute)" class="md-ellipsis">multiple_<wbr>form</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-batched_queue.result" class="md-nav__link">
+    <span title="batched_queue.result (Python module)" class="md-ellipsis">batched_<wbr>queue.<wbr>result module</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.result module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.BatchedQueueResult" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.result.BatchedQueueResult (Python class) — Bases: QueueResult[T]" class="md-ellipsis">batched_<wbr>queue.<wbr>result.<wbr>Batched<wbr>Queue<wbr>Result</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.result.BatchedQueueResult">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.BatchedQueueResult.check_results_done" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.result.BatchedQueueResult.check_results_done (Python method)" class="md-ellipsis">check_<wbr>results_<wbr>done</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.BatchedQueueResult.set_partial_result" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.result.BatchedQueueResult.set_partial_result (Python method)" class="md-ellipsis">set_<wbr>partial_<wbr>result</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.QueueResult" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.result.QueueResult (Python class) — Bases: Generic[T]" class="md-ellipsis">batched_<wbr>queue.<wbr>result.<wbr>Queue<wbr>Result</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.result.QueueResult">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.QueueResult.finished" class="md-nav__link">
+    <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="batched_queue.result.QueueResult.finished (Python property)" class="md-ellipsis">finished</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.QueueResult.get_result" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.result.QueueResult.get_result (Python method)" class="md-ellipsis">get_<wbr>result</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.QueueResult.set_result" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.result.QueueResult.set_result (Python method)" class="md-ellipsis">set_<wbr>result</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-batched_queue.types" class="md-nav__link">
+    <span title="batched_queue.types (Python module)" class="md-ellipsis">batched_<wbr>queue.<wbr>types module</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.types module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.types.BatchedQueueWorkerMultiple" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.types.BatchedQueueWorkerMultiple (Python class) — Bases: Protocol[T, U]" class="md-ellipsis">batched_<wbr>queue.<wbr>types.<wbr>Batched<wbr>Queue<wbr>Worker<wbr>Multiple</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.types.BatchedQueueWorkerSingle" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.types.BatchedQueueWorkerSingle (Python class) — Bases: Protocol[T_cat, U_co]" class="md-ellipsis">batched_<wbr>queue.<wbr>types.<wbr>Batched<wbr>Queue<wbr>Worker<wbr>Single</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-batched_queue" class="md-nav__link">
+    <span title="batched_queue (Python module)" class="md-ellipsis">Module contents</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#submodules" class="md-nav__link">
+    <span class="md-ellipsis">Submodules</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-batched_queue.incrementer" class="md-nav__link">
+    <span title="batched_queue.incrementer (Python module)" class="md-ellipsis">batched_<wbr>queue.<wbr>incrementer module</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.incrementer module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.incrementer.Incrementer" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.incrementer.Incrementer (Python class) — Bases: object" class="md-ellipsis">batched_<wbr>queue.<wbr>incrementer.<wbr>Incrementer</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.incrementer.Incrementer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.incrementer.Incrementer.increment" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.incrementer.Incrementer.increment (Python method)" class="md-ellipsis">increment</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.incrementer.Incrementer.value" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.incrementer.Incrementer.value (Python attribute)" class="md-ellipsis">value</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-batched_queue.queue" class="md-nav__link">
+    <span title="batched_queue.queue (Python module)" class="md-ellipsis">batched_<wbr>queue.<wbr>queue module</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.queue module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.queue.BatchedQueue (Python class) — Bases: Generic[T, U]" class="md-ellipsis">batched_<wbr>queue.<wbr>queue.<wbr>Batched<wbr>Queue</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.queue.BatchedQueue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.kill" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.queue.BatchedQueue.kill (Python method)" class="md-ellipsis">kill</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.multiple_form" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.queue.BatchedQueue.multiple_form (Python attribute)" class="md-ellipsis">multiple_<wbr>form</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.process" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.queue.BatchedQueue.process (Python method)" class="md-ellipsis">process</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.put" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.queue.BatchedQueue.put (Python method)" class="md-ellipsis">put</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.single_form" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.queue.BatchedQueue.single_form (Python attribute)" class="md-ellipsis">single_<wbr>form</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.start" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.queue.BatchedQueue.start (Python method)" class="md-ellipsis">start</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.BatchedQueue.stop" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.queue.BatchedQueue.stop (Python method)" class="md-ellipsis">stop</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.WorkerFunc" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.queue.WorkerFunc (Python class) — Bases: Generic[T, U]" class="md-ellipsis">batched_<wbr>queue.<wbr>queue.<wbr>Worker<wbr>Func</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.queue.WorkerFunc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.WorkerFunc.func" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.queue.WorkerFunc.func (Python attribute)" class="md-ellipsis">func</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.WorkerFunc.kwargs" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.queue.WorkerFunc.kwargs (Python attribute)" class="md-ellipsis">kwargs</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.queue.WorkerFunc.multiple_form" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="batched_queue.queue.WorkerFunc.multiple_form (Python attribute)" class="md-ellipsis">multiple_<wbr>form</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-batched_queue.result" class="md-nav__link">
+    <span title="batched_queue.result (Python module)" class="md-ellipsis">batched_<wbr>queue.<wbr>result module</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.result module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.BatchedQueueResult" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.result.BatchedQueueResult (Python class) — Bases: QueueResult[T]" class="md-ellipsis">batched_<wbr>queue.<wbr>result.<wbr>Batched<wbr>Queue<wbr>Result</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.result.BatchedQueueResult">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.BatchedQueueResult.check_results_done" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.result.BatchedQueueResult.check_results_done (Python method)" class="md-ellipsis">check_<wbr>results_<wbr>done</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.BatchedQueueResult.set_partial_result" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.result.BatchedQueueResult.set_partial_result (Python method)" class="md-ellipsis">set_<wbr>partial_<wbr>result</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.QueueResult" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.result.QueueResult (Python class) — Bases: Generic[T]" class="md-ellipsis">batched_<wbr>queue.<wbr>result.<wbr>Queue<wbr>Result</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.result.QueueResult">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.QueueResult.finished" class="md-nav__link">
+    <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="batched_queue.result.QueueResult.finished (Python property)" class="md-ellipsis">finished</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.QueueResult.get_result" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.result.QueueResult.get_result (Python method)" class="md-ellipsis">get_<wbr>result</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.result.QueueResult.set_result" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="batched_queue.result.QueueResult.set_result (Python method)" class="md-ellipsis">set_<wbr>result</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-batched_queue.types" class="md-nav__link">
+    <span title="batched_queue.types (Python module)" class="md-ellipsis">batched_<wbr>queue.<wbr>types module</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="batched_queue.types module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.types.BatchedQueueWorkerMultiple" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.types.BatchedQueueWorkerMultiple (Python class) — Bases: Protocol[T, U]" class="md-ellipsis">batched_<wbr>queue.<wbr>types.<wbr>Batched<wbr>Queue<wbr>Worker<wbr>Multiple</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched_queue.types.BatchedQueueWorkerSingle" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="batched_queue.types.BatchedQueueWorkerSingle (Python class) — Bases: Protocol[T_cat, U_co]" class="md-ellipsis">batched_<wbr>queue.<wbr>types.<wbr>Batched<wbr>Queue<wbr>Worker<wbr>Single</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-batched_queue" class="md-nav__link">
+    <span title="batched_queue (Python module)" class="md-ellipsis">Module contents</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="batched-queue-package">batched_queue package<a class="headerlink" href="#batched-queue-package" title="Link to this heading">¶</a></h1>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<h2 id="module-batched_queue.incrementer"><span id="batched-queue-incrementer-module"></span>batched_queue.incrementer module<a class="headerlink" href="#module-batched_queue.incrementer" title="Link to this heading">¶</a></h2>
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.incrementer.Incrementer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">batched_queue.incrementer.</span></span><span class="sig-name descname"><span class="pre">Incrementer</span></span><a class="headerlink" href="#batched_queue.incrementer.Incrementer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>implements a simple incrementer that wraps around at 2**32 - 1
+Uint32 overflow effectively</p>
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.incrementer.Incrementer.increment">
+<span class="sig-name descname"><span class="pre">increment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">cython.uint</span></span></span></span><a class="headerlink" href="#batched_queue.incrementer.Incrementer.increment" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.incrementer.Incrementer.value">
+<span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#batched_queue.incrementer.Incrementer.value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<h2 id="module-batched_queue.queue"><span id="batched-queue-queue-module"></span>batched_queue.queue module<a class="headerlink" href="#module-batched_queue.queue" title="Link to this heading">¶</a></h2>
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="batched_queue.queue.BatchedQueue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">batched_queue.queue.</span></span><span class="sig-name descname"><span class="pre">BatchedQueue</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.worker_func_multiple: ~batched_queue.types.BatchedQueueWorkerMultiple[__SPHINX_IMMATERIAL_TYPE_VAR__V_T (Python parameter)"><span class="n"><span class="pre">worker_func_multiple:</span> <span class="pre">~batched_queue.types.BatchedQueueWorkerMultiple[__SPHINX_IMMATERIAL_TYPE_VAR__V_T</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.__SPHINX_IMMATERIAL_TYPE_VAR__V_U] | None = None (Python parameter)"><span class="n"><span class="pre">__SPHINX_IMMATERIAL_TYPE_VAR__V_U]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.worker_func_single: ~batched_queue.types.BatchedQueueWorkerSingle[__SPHINX_IMMATERIAL_TYPE_VAR__V_T (Python parameter)"><span class="n"><span class="pre">worker_func_single:</span> <span class="pre">~batched_queue.types.BatchedQueueWorkerSingle[__SPHINX_IMMATERIAL_TYPE_VAR__V_T</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.__SPHINX_IMMATERIAL_TYPE_VAR__V_U] | None = None (Python parameter)"><span class="n"><span class="pre">__SPHINX_IMMATERIAL_TYPE_VAR__V_U]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.* (Python parameter)"><span class="n"><span class="pre">*</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.batch_max_size: int | None = None (Python parameter)"><span class="n"><span class="pre">batch_max_size:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.worker_func_single_cost: int = 1000 (Python parameter)"><span class="n"><span class="pre">worker_func_single_cost:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1000</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.worker_func_multiple_fixed_cost: int = 5000 (Python parameter)"><span class="n"><span class="pre">worker_func_multiple_fixed_cost:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">5000</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.worker_func_multiple_cost: int = 100 (Python parameter)"><span class="n"><span class="pre">worker_func_multiple_cost:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">100</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.worker_func_single_kwargs: dict[str (Python parameter)"><span class="n"><span class="pre">worker_func_single_kwargs:</span> <span class="pre">dict[str</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.~typing.Any] | None = None (Python parameter)"><span class="n"><span class="pre">~typing.Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.worker_func_multiple_kwargs: dict[str (Python parameter)"><span class="n"><span class="pre">worker_func_multiple_kwargs:</span> <span class="pre">dict[str</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.~typing.Any] | None = None (Python parameter)"><span class="n"><span class="pre">~typing.Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.num_workers: int = 1 (Python parameter)"><span class="n"><span class="pre">num_workers:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue" title="batched_queue.queue.BatchedQueue.__init__.worker_pool_executor: type[~concurrent.futures.thread.ThreadPoolExecutor | ~concurrent.futures.process.ProcessPoolExecutor] = &lt;class 'concurrent.futures.thread.ThreadPoolExecutor'&gt; (Python parameter)"><span class="n"><span class="pre">worker_pool_executor:</span> <span class="pre">type[~concurrent.futures.thread.ThreadPoolExecutor</span> <span class="pre">|</span> <span class="pre">~concurrent.futures.process.ProcessPoolExecutor]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'concurrent.futures.thread.ThreadPoolExecutor'&gt;</span></span></a></em></span><span class="sig-paren">)</span><a class="reference internal" href="_modules/batched_queue/queue.html#BatchedQueue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.queue.BatchedQueue" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">U</span></code>]</p>
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.queue.BatchedQueue.kill">
+<span class="sig-name descname"><span class="pre">kill</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue.kill" title="batched_queue.queue.BatchedQueue.kill.timeout (Python parameter)"><span class="n"><span class="pre">timeout</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">5</span></code></em></span><span class="sig-paren">)</span><a class="reference internal" href="_modules/batched_queue/queue.html#BatchedQueue.kill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.queue.BatchedQueue.kill" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.queue.BatchedQueue.multiple_form">
+<span class="sig-name descname"><span class="pre">multiple_form</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference internal" href="#batched_queue.queue.WorkerFunc" title="batched_queue.queue.WorkerFunc (Python class) — Bases: Generic[T, U]"><span class="pre">WorkerFunc</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><a class="headerlink" href="#batched_queue.queue.BatchedQueue.multiple_form" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="batched_queue.queue.BatchedQueue.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue.process" title="batched_queue.queue.BatchedQueue.process.item (Python parameter)"><span class="n"><span class="pre">item</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Collection" title="(in Python v3.12)"><span class="pre">Collection</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue.process" title="batched_queue.queue.BatchedQueue.process.timeout (Python parameter)"><span class="n"><span class="pre">timeout</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">U</span><span class="p"><span class="pre">]</span></span></span></span></span><a class="reference internal" href="_modules/batched_queue/queue.html#BatchedQueue.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.queue.BatchedQueue.process" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object highlight py">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue.process" title="batched_queue.queue.BatchedQueue.process.item (Python parameter)"><span class="n"><span class="pre">item</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">T</span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue.process" title="batched_queue.queue.BatchedQueue.process.timeout (Python parameter)"><span class="n"><span class="pre">timeout</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">U</span></span></span></span></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.queue.BatchedQueue.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.BatchedQueue.put" title="batched_queue.queue.BatchedQueue.put.item (Python parameter)"><span class="n"><span class="pre">item</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.12)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="#batched_queue.result.BatchedQueueResult" title="batched_queue.result.BatchedQueueResult (Python class) — Bases: QueueResult[T]"><span class="pre">BatchedQueueResult</span></a><span class="p"><span class="pre">[</span></span><span class="pre">U</span><span class="p"><span class="pre">]</span></span></span></span></span><a class="reference internal" href="_modules/batched_queue/queue.html#BatchedQueue.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.queue.BatchedQueue.put" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.queue.BatchedQueue.single_form">
+<span class="sig-name descname"><span class="pre">single_form</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference internal" href="#batched_queue.queue.WorkerFunc" title="batched_queue.queue.WorkerFunc (Python class) — Bases: Generic[T, U]"><span class="pre">WorkerFunc</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><a class="headerlink" href="#batched_queue.queue.BatchedQueue.single_form" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.queue.BatchedQueue.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/batched_queue/queue.html#BatchedQueue.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.queue.BatchedQueue.start" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.queue.BatchedQueue.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/batched_queue/queue.html#BatchedQueue.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.queue.BatchedQueue.stop" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="batched_queue.queue.WorkerFunc">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">batched_queue.queue.</span></span><span class="sig-name descname"><span class="pre">WorkerFunc</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.WorkerFunc" title="batched_queue.queue.WorkerFunc.__init__.func (Python parameter)"><span class="n"><span class="pre">func</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="#batched_queue.types.BatchedQueueWorkerMultiple" title="batched_queue.types.BatchedQueueWorkerMultiple (Python class) — Bases: Protocol[T, U]"><span class="pre">batched_queue.types.BatchedQueueWorkerMultiple</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#batched_queue.types.BatchedQueueWorkerSingle" title="batched_queue.types.BatchedQueueWorkerSingle (Python class) — Bases: Protocol[T_cat, U_co]"><span class="pre">batched_queue.types.BatchedQueueWorkerSingle</span></a></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.WorkerFunc" title="batched_queue.queue.WorkerFunc.__init__.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.queue.WorkerFunc" title="batched_queue.queue.WorkerFunc.__init__.multiple_form (Python parameter)"><span class="n"><span class="pre">multiple_form</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span></em></span><span class="sig-paren">)</span><a class="reference internal" href="_modules/batched_queue/queue.html#WorkerFunc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.queue.WorkerFunc" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">U</span></code>]</p>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.queue.WorkerFunc.func">
+<span class="sig-name descname"><span class="pre">func</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference internal" href="#batched_queue.types.BatchedQueueWorkerMultiple" title="batched_queue.types.BatchedQueueWorkerMultiple (Python class) — Bases: Protocol[T, U]"><span class="pre">BatchedQueueWorkerMultiple</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#batched_queue.types.BatchedQueueWorkerSingle" title="batched_queue.types.BatchedQueueWorkerSingle (Python class) — Bases: Protocol[T_cat, U_co]"><span class="pre">BatchedQueueWorkerSingle</span></a></span><a class="headerlink" href="#batched_queue.queue.WorkerFunc.func" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.queue.WorkerFunc.kwargs">
+<span class="sig-name descname"><span class="pre">kwargs</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#batched_queue.queue.WorkerFunc.kwargs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.queue.WorkerFunc.multiple_form">
+<span class="sig-name descname"><span class="pre">multiple_form</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><a class="headerlink" href="#batched_queue.queue.WorkerFunc.multiple_form" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<h2 id="module-batched_queue.result"><span id="batched-queue-result-module"></span>batched_queue.result module<a class="headerlink" href="#module-batched_queue.result" title="Link to this heading">¶</a></h2>
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="batched_queue.result.BatchedQueueResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">batched_queue.result.</span></span><span class="sig-name descname"><span class="pre">BatchedQueueResult</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.result.BatchedQueueResult" title="batched_queue.result.BatchedQueueResult.__init__.is_list (Python parameter)"><span class="n"><span class="pre">is_list</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.result.BatchedQueueResult" title="batched_queue.result.BatchedQueueResult.__init__._ids (Python parameter)"><span class="n"><span class="pre">_ids</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span></em></span><span class="sig-paren">)</span><a class="reference internal" href="_modules/batched_queue/result.html#BatchedQueueResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.result.BatchedQueueResult" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#batched_queue.result.QueueResult" title="batched_queue.result.QueueResult (Python class) — Bases: Generic[T]"><code class="xref py py-class docutils literal notranslate"><span class="pre">QueueResult</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.result.BatchedQueueResult.check_results_done">
+<span class="sig-name descname"><span class="pre">check_results_done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span></span><a class="reference internal" href="_modules/batched_queue/result.html#BatchedQueueResult.check_results_done"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.result.BatchedQueueResult.check_results_done" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.result.BatchedQueueResult.set_partial_result">
+<span class="sig-name descname"><span class="pre">set_partial_result</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.result.BatchedQueueResult.set_partial_result" title="batched_queue.result.BatchedQueueResult.set_partial_result.item_id (Python parameter)"><span class="n"><span class="pre">item_id</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.result.BatchedQueueResult.set_partial_result" title="batched_queue.result.BatchedQueueResult.set_partial_result.result (Python parameter)"><span class="n"><span class="pre">result</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">T</span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span></span><a class="reference internal" href="_modules/batched_queue/result.html#BatchedQueueResult.set_partial_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.result.BatchedQueueResult.set_partial_result" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.result.QueueResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">batched_queue.result.</span></span><span class="sig-name descname"><span class="pre">QueueResult</span></span><a class="reference internal" href="_modules/batched_queue/result.html#QueueResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.result.QueueResult" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<dl class="py property objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.result.QueueResult.finished">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">finished</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><a class="headerlink" href="#batched_queue.result.QueueResult.finished" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.result.QueueResult.get_result">
+<span class="sig-name descname"><span class="pre">get_result</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.result.QueueResult.get_result" title="batched_queue.result.QueueResult.get_result.timeout (Python parameter)"><span class="n"><span class="pre">timeout</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span></span><a class="reference internal" href="_modules/batched_queue/result.html#QueueResult.get_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.result.QueueResult.get_result" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.result.QueueResult.set_result">
+<span class="sig-name descname"><span class="pre">set_result</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#batched_queue.result.QueueResult.set_result" title="batched_queue.result.QueueResult.set_result.result (Python parameter)"><span class="n"><span class="pre">result</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span></span><a class="reference internal" href="_modules/batched_queue/result.html#QueueResult.set_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.result.QueueResult.set_result" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<h2 id="module-batched_queue.types"><span id="batched-queue-types-module"></span>batched_queue.types module<a class="headerlink" href="#module-batched_queue.types" title="Link to this heading">¶</a></h2>
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="batched_queue.types.BatchedQueueWorkerMultiple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">batched_queue.types.</span></span><span class="sig-name descname"><span class="pre">BatchedQueueWorkerMultiple</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">*</span></span><a class="n reference internal" href="#batched_queue.types.BatchedQueueWorkerMultiple" title="batched_queue.types.BatchedQueueWorkerMultiple.__init__.args (Python parameter)"><span class="n"><span class="pre">args</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#batched_queue.types.BatchedQueueWorkerMultiple" title="batched_queue.types.BatchedQueueWorkerMultiple.__init__.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="reference internal" href="_modules/batched_queue/types.html#BatchedQueueWorkerMultiple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.types.BatchedQueueWorkerMultiple" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Protocol" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">U</span></code>]</p>
+</dd></dl>
+
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight py" id="batched_queue.types.BatchedQueueWorkerSingle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">batched_queue.types.</span></span><span class="sig-name descname"><span class="pre">BatchedQueueWorkerSingle</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">*</span></span><a class="n reference internal" href="#batched_queue.types.BatchedQueueWorkerSingle" title="batched_queue.types.BatchedQueueWorkerSingle.__init__.args (Python parameter)"><span class="n"><span class="pre">args</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#batched_queue.types.BatchedQueueWorkerSingle" title="batched_queue.types.BatchedQueueWorkerSingle.__init__.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="reference internal" href="_modules/batched_queue/types.html#BatchedQueueWorkerSingle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#batched_queue.types.BatchedQueueWorkerSingle" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Protocol" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T_cat</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">U_co</span></code>]</p>
+</dd></dl>
+
+<h2 id="module-batched_queue"><span id="module-contents"></span>Module contents<a class="headerlink" href="#module-batched_queue" title="Link to this heading">¶</a></h2>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Welcome to Batched Queues’s documentation!" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Welcome to Batched Queues’s documentation!
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2024, Daniel Sullivan.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.0.2.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+      
+        <script src="_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+    
+  </body>
+</html>
