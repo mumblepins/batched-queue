@@ -1,0 +1,97 @@
+name: test-and-build-template
+on:
+  workflow_call:
+    inputs:
+      os:
+        type: string
+        required: true
+jobs:
+  test:
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    env:
+      OS: ${{ inputs.os }}
+      PYTHON: ${{ matrix.python-version }}
+    runs-on: ${{ inputs.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+      - name: Setup a local virtual environment (if no poetry.toml file)
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+      - uses: actions/cache@v4
+        name: Define a cache for the virtual environment based on the dependencies lock file
+        with:
+          path: ./.venv
+          key: ${{ runner.os }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.python-version }}-poetry-
+            ${{ runner.os }}-
+      - name: install dependencies
+        run: |
+          poetry install --sync
+      - name: run pre-commit
+        uses: pre-commit/action@main
+        env:
+          SKIP: pyright
+      - name: run pyright
+        uses: jakebailey/pyright-action@v2
+      - name: run tests
+        run: >-
+          poetry run pytest
+          -n 16
+          --dist worksteal
+          --verbose
+          --cov
+          --cov-report=html --cov-report=term --cov-report=xml
+          --junitxml=junit.xml
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          env_vars: OS,PYTHON
+          token: ${{ secrets.CODECOV_TOKEN }}
+  build_wheels:
+    name: Build wheels on ${{ inputs.os }}
+    runs-on: ${{ inputs.os }}
+    needs:
+      - test
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+    #          - windows-latest
+    #          - macos-13
+    #          - macos-14
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up QEMU
+        if: runner.os == 'Linux'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: all
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.20.0
+        env:
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.10"
+          CIBW_ARCHS_LINUX: auto aarch64
+          #          CIBW_FREE_THREADED_SUPPORT: 1
+          CIBW_SKIP: "*t-win* *musl*"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cibw-wheels-${{ inputs.os }}-${{ strategy.job-index }}
+          path: ./wheelhouse/*.whl

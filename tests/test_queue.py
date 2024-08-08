@@ -16,10 +16,15 @@ if sys.platform.startswith("linux"):
     single_time = 20  # ms
     multiple_fixed_time = 100  # ms
     multiple_time = 5  # ms
+    error_percent = 0.2
+    error_absolute = 0.15  # seconds
 else:
+    # slower timings and larger error allowed for non-linux platforms
     single_time = 200  # ms
     multiple_fixed_time = 2000  # ms
     multiple_time = 50  # ms
+    error_percent = 0.3
+    error_absolute = 0.25  # seconds
 
 
 def worker_func_single(item: int) -> int:
@@ -95,8 +100,11 @@ def test_process(items, worker_func, calc_time):
     else:
         estimated_time = calc_time(1)
         assert res == items + 1
-    # 20% error or less than 0.15 seconds
-    assert abs(diff - estimated_time) / estimated_time < 0.2 or abs(diff - estimated_time) < 0.15
+    # percent error or less than error_absolute seconds
+    assert (
+        abs(diff - estimated_time) / estimated_time < error_percent
+        or abs(diff - estimated_time) < error_absolute
+    )
 
 
 @pytest.mark.parametrize("num_workers", [2, 4])
