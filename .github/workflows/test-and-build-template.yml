@@ -53,11 +53,11 @@ jobs:
           --cov
           --cov-report=html --cov-report=term --cov-report=xml
           --junitxml=junit.xml
-      - name: Upload test results to Codecov
-        if: ${{ !cancelled() }}
-        uses: codecov/test-results-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      #      - name: Upload test results to Codecov
+      #        if: ${{ !cancelled() }}
+      #        uses: codecov/test-results-action@v1
+      #        with:
+      #          token: ${{ secrets.CODECOV_TOKEN }}
       - uses: codecov/codecov-action@v4
         with:
           files: ./coverage.xml
