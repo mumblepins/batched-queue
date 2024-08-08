@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "batched-queue"
-version = "0.1.2"
+version = "0.1.3"
 description = "Batched Queue"
 authors = ["Daniel Sullivan"]
 readme = "README.md"

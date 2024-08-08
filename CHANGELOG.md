@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v0.1.3 (2024-08-08)
+
+### Other
+
+  * [2024-08-08](59253aafbbfdde73828a0af71bd5250b497282a8) – Buildwheel arches.  <small>([Daniel Sullivan](mailto:daniel.j.sullivan@state.mn.us))</small>
+
+  * [2024-08-07](6a2b23aa51c1891fb5c0467a24fcad6c33195328) – Buildwheel arches.  <small>([Daniel Sullivan](mailto:daniel.j.sullivan@state.mn.us))</small>
+
+
 ## v0.1.2 (2024-08-07)
 
 ### Other
