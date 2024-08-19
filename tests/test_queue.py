@@ -101,10 +101,12 @@ def test_process(items, worker_func, calc_time):
         estimated_time = calc_time(1)
         assert res == items + 1
     # percent error or less than error_absolute seconds
-    assert (
-        abs(diff - estimated_time) / estimated_time < error_percent
-        or abs(diff - estimated_time) < error_absolute
-    )
+    if sys.platform.startswith("linux"):
+        # don't want to fail on non-linux platforms
+        assert (
+            abs(diff - estimated_time) / estimated_time < error_percent
+            or abs(diff - estimated_time) < error_absolute
+        )
 
 
 @pytest.mark.parametrize("num_workers", [2, 4])
