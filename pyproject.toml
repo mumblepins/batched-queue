@@ -4,6 +4,8 @@ version = "0.1.3"
 description = "Batched Queue"
 authors = ["Daniel Sullivan"]
 repository = "https://github.com/mumblepins/batched-queue"
+homepage = "https://mumblepins.github.io/batched-queue/"
+
 readme = "README.md"
 packages = [
     { include = "batched_queue", from = "src" },
