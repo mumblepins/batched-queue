@@ -31,10 +31,10 @@ jobs:
         name: Define a cache for the virtual environment based on the dependencies lock file
         with:
           path: ./.venv
-          key: ${{ runner.os }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
+          key: ${{ runner.os }}-${{ runner.arch }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.python-version }}-poetry-
-            ${{ runner.os }}-
+            ${{ runner.os }}-${{ runner.arch }}-${{ matrix.python-version }}-poetry-
+            ${{ runner.os }}-${{ runner.arch }}-
       - name: install dependencies
         run: |
           poetry install --sync
