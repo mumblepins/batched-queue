@@ -3,6 +3,9 @@ name = "batched-queue"
 version = "0.1.3"
 description = "Batched Queue"
 authors = ["Daniel Sullivan"]
+repository = "https://github.com/mumblepins/batched-queue"
+homepage = "https://mumblepins.github.io/batched-queue/"
+
 readme = "README.md"
 packages = [
     { include = "batched_queue", from = "src" },
@@ -197,8 +200,8 @@ pythonVersion = "3.10"
 pythonPlatform = "Linux"
 
 executionEnvironments = [
-  { root = "src/web", pythonVersion = "3.5", pythonPlatform = "Windows", extraPaths = [ "src/service_libs" ] },
-  { root = "src/sdk", pythonVersion = "3.0", extraPaths = [ "src/backend" ] },
-  { root = "src/tests", extraPaths = ["src/tests/e2e", "src/sdk" ]},
-  { root = "src" }
+    { root = "src/web", pythonVersion = "3.5", pythonPlatform = "Windows", extraPaths = ["src/service_libs"] },
+    { root = "src/sdk", pythonVersion = "3.0", extraPaths = ["src/backend"] },
+    { root = "src/tests", extraPaths = ["src/tests/e2e", "src/sdk"] },
+    { root = "src" }
 ]

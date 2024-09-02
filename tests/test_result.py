@@ -51,7 +51,8 @@ def test_result_timeout():
         nonlocal exception
         try:
             logger.info("waiting for result")
-            assert pytest.raises(TimeoutError, result.get_result(0.5))
+            with pytest.raises(TimeoutError):
+                result.get_result(0.5)
         except Exception as e:
             logger.exception(e)
 

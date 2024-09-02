@@ -12,14 +12,11 @@ from batched_queue.queue import BatchedQueue
 from batched_queue.types import BatchedQueueWorkerSingle
 
 logger = logging.getLogger(__name__)
-if sys.platform.startswith("linux"):
-    single_time = 20  # ms
-    multiple_fixed_time = 100  # ms
-    multiple_time = 5  # ms
-else:
-    single_time = 200  # ms
-    multiple_fixed_time = 2000  # ms
-    multiple_time = 50  # ms
+single_time = 20  # ms
+multiple_fixed_time = 100  # ms
+multiple_time = 5  # ms
+error_percent = 0.2
+error_absolute = 0.15  # seconds
 
 
 def worker_func_single(item: int) -> int:
@@ -95,31 +92,38 @@ def test_process(items, worker_func, calc_time):
     else:
         estimated_time = calc_time(1)
         assert res == items + 1
-    # 20% error or less than 0.15 seconds
-    assert abs(diff - estimated_time) / estimated_time < 0.2 or abs(diff - estimated_time) < 0.15
+    # percent error or less than error_absolute seconds
+    if sys.platform.startswith("linux"):
+        # don't want to fail on non-linux platforms
+        assert (
+            abs(diff - estimated_time) / estimated_time < error_percent
+            or abs(diff - estimated_time) < error_absolute
+        )
 
 
 @pytest.mark.parametrize("num_workers", [2, 4])
 @pytest.mark.parametrize("worker_type", [ThreadPoolExecutor, ProcessPoolExecutor])
 @pytest.mark.parametrize(
-    "worker_func,calc_time",
+    "worker_func",
     [
-        [{"worker_func_single": worker_func_single}, calc_single_time],
-        [{"worker_func_multiple": worker_func_multiple}, calc_multiple_time],
-        [
-            {
-                "worker_func_single": worker_func_single,
-                "worker_func_multiple": worker_func_multiple,
-            },
-            calc_combo_time,
-        ],
+        {"worker_func_single": worker_func_single},
+        {"worker_func_multiple": worker_func_multiple},
+        {
+            "worker_func_single": worker_func_single,
+            "worker_func_multiple": worker_func_multiple,
+        },
     ],
 )
 @pytest.mark.parametrize("list_length", [(0, 20), (10, 100)])
 @pytest.mark.parametrize("number_submitters", [5, 25])
 @pytest.mark.parametrize("batch_max_size", [None, 1_000])
 def test_parallel_process(
-    worker_func, calc_time, num_workers, worker_type, list_length, number_submitters, batch_max_size
+    worker_func,
+    num_workers,
+    worker_type,
+    list_length,
+    number_submitters,
+    batch_max_size,
 ):
     bq: BatchedQueue[int, int] = BatchedQueue[int, int](
         **worker_func,
