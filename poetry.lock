@@ -1020,13 +1020,13 @@ test = ["cython (>=3.0)", "defusedxml (>=0.7.1)", "pytest (>=8.0)", "setuptools 
 
 [[package]]
 name = "sphinx-immaterial"
-version = "0.12.2"
+version = "0.12.4"
 description = "Adaptation of mkdocs-material theme for the Sphinx documentation system"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sphinx_immaterial-0.12.2-py3-none-any.whl", hash = "sha256:a7317c42fac1075982b088671364daaf5fcf829ab5835cfb374d3b2496be14ee"},
-    {file = "sphinx_immaterial-0.12.2.tar.gz", hash = "sha256:0c06f2b18dffc8a3ae04ce9e7f1d4a011dd4811965558a6b394484b9af2f3ec4"},
+    {file = "sphinx_immaterial-0.12.4-py3-none-any.whl", hash = "sha256:09224ad18a39204e0a05168e027d0b6af1b85be33c666c711092ae91229e6ac7"},
+    {file = "sphinx_immaterial-0.12.4.tar.gz", hash = "sha256:3b2128114040e96539cf4eaaa924b80bf4944af363e4e9954a6290fa7549aeaa"},
 ]
 
 [package.dependencies]
